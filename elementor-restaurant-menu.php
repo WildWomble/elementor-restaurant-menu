@@ -3,20 +3,19 @@
  * Plugin Name:                 Elementor Restaurant Menu
  * Description:                 Fancy and responsive restaurant menu.
  * Version:                     1.0.0
- * Author:                      MoistWomble
- * Author URI:                  #
+ * Author:                      WildWomble
+ * Author URI:                  https://github.com/WildWomble/elementor-restaurant-menu
  * Text Domain:                 elementor-restaurant-menu
  * Elementor tested up to:      3.16.0
- * Elementor Pro tested up to:  3.14.1
+ * Elementor Pro tested up to:  3.16.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+function register_new_widget( $widgets_manager ) {
+
+	require_once( __DIR__ . '/includes/widgets/widget-restaurant-menu.php' );
+
+	$widgets_manager->register( new \Widget_Restaurant_Menu() );
+
 }
 
-define( 'ERM_VER', 1.0.0 );
-define( 'ERM_FILE', __FILE__ );
-define( 'ERM_DIR', plugin_dir_path( __FILE__ ) );
-
-//Load the class
-require_once ERM_DIR . '/includes/class-elementor-restaurant-menu.php';
+add_action( 'elementor/widgets/register', 'register_new_widget' );
