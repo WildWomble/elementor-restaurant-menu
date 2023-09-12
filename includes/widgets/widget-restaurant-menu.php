@@ -26,31 +26,11 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 	}
     
 	protected function register_controls() {
-
-		$this->start_controls_section(
-			'heading_section',
-			[
-				'label' 		=> esc_html__( 'Heading', 'elementor-restaurant-menu' ),
-				'tab' 			=> \Elementor\Controls_Manager::TAB_CONTENT,
-			]
-		);
-
-		$this->add_control(
-			'title',
-			[
-				'type' 			=> \Elementor\Controls_Manager::TEXT,
-				'label' 		=> esc_html__( 'Title', 'elementor-restaurant-menu' ),
-				'defaul' 		=> esc_html__( 'Enter your title', 'elementor-restaurant-menu' ),
-			]
-		);
-
-		$this->end_controls_section();
-
 		
 		$this->start_controls_section(
 			'items_section',
 			[
-				'label' 		=> esc_html__( 'Items', 'elementor-restaurant-menu' ),
+				'label' 		=> esc_html__( 'Items & Settings', 'elementor-restaurant-menu' ),
 				'tab' 			=> \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -86,6 +66,17 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						]
 					],
 					[
+						'name'			=> 'list_item_image',
+						'label' 		=> esc_html__( 'Choose Image', 'elementor-restaurant-menu' ),
+						'type' 			=> \Elementor\Controls_Manager::MEDIA,
+						'default' 		=> [
+							'url' 		=> \Elementor\Utils::get_placeholder_image_src(),
+						],
+						'condition' => [
+							'list_item_type' 	=> 'item',
+						],
+					],
+					[
 						'name' 			=> 'list_item_hide',
 						'label' 		=> esc_html__( 'Hide this item?', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::SWITCHER,
@@ -95,14 +86,13 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'default' 		=> 'yes',
 					],
 					[
-						'name' 			=> 'list_item_heading',
-						'label' 		=> esc_html__( 'Category Name', 'elementor-restaurant-menu' ),
-						'type' 			=> \Elementor\Controls_Manager::TEXT,
-						'placeholder' 	=> esc_html__( 'Appetizers' , 'elementor-restaurant-menu' ),
-						'label_block' 	=> true,
-						'condition' => [
-							'list_item_type' => 'heading',
-						],
+						'name' 			=> 'second_language',
+						'label' 		=> esc_html__( 'Show 2nd language?', 'elementor-restaurant-menu' ),
+						'type' 			=> \Elementor\Controls_Manager::SWITCHER,
+						'label_on' 		=> esc_html__( 'Yes', 'elementor-restaurant-menu' ),
+						'label_off' 	=> esc_html__( 'No', 'elementor-restaurant-menu' ),
+						'return_value' 	=> 'yes',
+						'default' 		=> 'yes',
 					],
 					[
 						'name' 			=> 'list_item_name',
@@ -110,8 +100,16 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
 						'placeholder' 	=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
 						'label_block' 	=> true,
+					],
+					[
+						'name' 			=> 'list_item_name_2nd',
+						'label' 		=> esc_html__( 'Item Name 2', 'elementor-restaurant-menu' ),
+						'type' 			=> \Elementor\Controls_Manager::TEXT,
+						'placeholder' 	=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
+						'label_block' 	=> true,
 						'condition' => [
-							'list_item_type' => 'item',
+							'list_item_type' 	=> 'item',
+							'second_language'	=> 'yes'
 						],
 					],
 					[
@@ -124,12 +122,53 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						],
 					],
 					[
+						'name' 			=> 'list_item_ingredients_2nd',
+						'label' 		=> esc_html__( 'Item Ingredients 2', 'elementor-restaurant-menu' ),
+						'type' 			=> \Elementor\Controls_Manager::TEXTAREA,
+						'placeholder' 	=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
+						'condition' => [
+							'list_item_type' 	=> 'item',
+							'second_language'	=> 'yes'
+						],
+					],
+					[
 						'name' 			=> 'list_item_nutrition_facts',
 						'label' 		=> esc_html__( 'Item Nutrition Facts', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXTAREA,
 						'placeholder' 	=> esc_html__( 'Energy Value (kJ/kcal): 568.4 / 135.8, Fat (g): 9.1 of which: Saturated Fatty Acids (g) 4.5, Carbohydrates (g): 7.7 of which: Sugars (g): 1.7, Protein (g): 6.5, Salt (g): 0.5' , 'elementor-restaurant-menu' ),
 						'condition' => [
 							'list_item_type' => 'item',
+						],
+					],
+					[
+						'name' 			=> 'list_item_nutrition_facts_2nd',
+						'label' 		=> esc_html__( 'Item Nutrition Facts 2', 'elementor-restaurant-menu' ),
+						'type' 			=> \Elementor\Controls_Manager::TEXTAREA,
+						'placeholder' 	=> esc_html__( 'Energy Value (kJ/kcal): 568.4 / 135.8, Fat (g): 9.1 of which: Saturated Fatty Acids (g) 4.5, Carbohydrates (g): 7.7 of which: Sugars (g): 1.7, Protein (g): 6.5, Salt (g): 0.5' , 'elementor-restaurant-menu' ),
+						'condition' => [
+							'list_item_type' 	=> 'item',
+							'second_language'	=> 'yes'
+						],
+					],
+					[
+						'name' 			=> 'list_item_alergies',
+						'label' 		=> esc_html__( 'Item Alergies', 'elementor-restaurant-menu' ),
+						'type' 			=> \Elementor\Controls_Manager::TEXT,
+						'placeholder' 	=> esc_html__( 'Peanuts, Milk' , 'elementor-restaurant-menu' ),
+						'label_block' 	=> true,
+						'condition' => [
+							'list_item_type' => 'item',
+						],
+					],
+					[
+						'name' 			=> 'list_item_alergies_2nd',
+						'label' 		=> esc_html__( 'Item Alergies 2', 'elementor-restaurant-menu' ),
+						'type' 			=> \Elementor\Controls_Manager::TEXT,
+						'placeholder' 	=> esc_html__( 'Peanuts, Milk' , 'elementor-restaurant-menu' ),
+						'label_block' 	=> true,
+						'condition' => [
+							'list_item_type' 	=> 'item',
+							'second_language'	=> 'yes'
 						],
 					],
 					[
@@ -150,8 +189,7 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 							'list_item_type' => 'item',
 						],
 					]
-				],
-				'title_field' => '{{{ list_item_name }}}',
+				]
 			]
 		);
 
@@ -189,19 +227,58 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		?>
-
-		<p class="hello-world">
-			<?php echo $settings['title']; ?>
-		</p>
 		
 		<?php
 		if ( $settings['list'] ) {
-			echo '<dl>';
+			echo '<div class="restaurant-items">';
 			foreach (  $settings['list'] as $item ) {
-				echo '<dt class="elementor-repeater-item-' . esc_attr( $item['_id'] ) . '">' . $item['list_item_name'] . '</dt>';
-				echo '<dd>' . $item['list_item_ingredients'] . '</dd>';
+				if($item['list_item_type'] == 'heading') {
+					echo '
+					<section class="list-item-' . esc_attr( $item['_id'] ) . '">
+						<h2 class="item-section-heading first-lang">' . $item['list_item_name'] . '</h2>
+						<h2 class="item-section-heading second-lang">' . $item['list_item_name_2nd'] . '</h2>
+					</section>';
+				} else {
+					echo '
+					<div class="item-' . esc_attr( $item['_id'] ) . ' restaurant-item">
+						<div class="item-image"><img src="' . $item['list_item_image']['url'] . '"></div>
+						<div class="item-details">
+							<div class="item-title">
+								<div class="first-lang"><h2>' . $item['list_item_name'] . '</h2></div>
+								<div class="second-lang"><h2>' . $item['list_item_name_2nd'] . '</h2></div>
+							</div>
+							<div class="item-info">
+								<div class="info-weight">' . $item['list_item_weight'] . '</div>
+								<div class="info-price">' . $item['list_item_price'] . ' ' . $settings['currency'] . '</div>
+							</div>
+							<div class="item-subtitle">
+								<p class="first-lang">Click pentru valori nutritionale.</p>
+								<p class="second-lang">Click to show nutritional values.</p>
+							</div>
+							<div class="item-facts">
+								<h4 class="first-lang">Ingrediente</h4>
+								<h4 class="second-lang">Ingredients</h4>
+								<div class="item-ingredients">
+									<p class="first-lang">' . $item['list_item_ingredients'] . '</p>
+									<p class="second-lang">' . $item['list_item_ingredients_2nd'] . '</p>
+								</div>
+								<h4 class="first-lang">Informatii Nutritionale 100g</h4>
+								<h4 class="second-lang">Nutrition Facts per 100g</h4>
+								<div class="item-ingredients">
+									<p class="first-lang">' . $item['list_item_nutrition_facts'] . '</p>
+									<p class="second-lang">' . $item['list_item_nutrition_facts_2nd'] . '</p>
+								</div>
+							</div>
+							<div class="item-alergies">
+								<p class="first-lang">' . $item['list_item_alergies'] . '</p>
+								<p class="second-lang">' . $item['list_item_alergies_2nd'] . '</p>
+							</div>
+						</div>
+					</div>
+					';
+				}
 			}
-			echo '</dl>';
+			echo '</div>';
 		}
 	}
 }

@@ -19,3 +19,12 @@ function register_new_widget( $widgets_manager ) {
 }
 
 add_action( 'elementor/widgets/register', 'register_new_widget' );
+
+function widget_styles() {
+
+	wp_register_style( 'restaurant-menu', plugins_url( 'assets/css/restaurant-menu.css', __FILE__ ) );
+
+	wp_enqueue_style( 'restaurant-menu' );
+
+}
+add_action( 'elementor/frontend/before_enqueue_styles', 'widget_styles' );
