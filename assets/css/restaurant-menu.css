@@ -1,9 +1,9 @@
 .restaurant-items {
     display: flex;
     flex-wrap: wrap;
-  }
+}
   
-  .restaurant-items h2.item-section-heading {
+.restaurant-items h2.item-section-heading {
     color: #ffd400;
     text-align: center;
     margin-bottom: 15px;
@@ -14,63 +14,65 @@
     margin-top: 25px;
     font-weight: bold;
     font-size: 32px;
-  }
-  
-  .restaurant-items section {
+}
+
+.restaurant-items section {
     width: 100%
-  }
-  
-  .restaurant-items .restaurant-item {
+}
+
+.restaurant-items .restaurant-item {
     flex: 1 1 50%;
     padding: 10px;
     border-bottom: 1px solid #eee;
     position: relative;
     display: flex;
     align-items: center;
-  }
-  
-  .restaurant-items .restaurant-item:hover {
+}
+
+.restaurant-items .restaurant-item:hover {
     background-color: #eee;
     cursor: pointer;
-  }
-  
-  .restaurant-item .item-image {
+}
+
+.restaurant-item .item-image {
     justify-content: center;
     align-items: center;
     display: flex;
     width: 120px;
     height: 120px;
-  }
-  
-  .restaurant-item .item-details {
+}
+
+.restaurant-item .item-details {
     width: 80%;
     padding: 0 10px;
-  }
-  
-  .item-details h2, .item-details h4 {
+}
+
+.item-details h2, .item-details h4 {
     color: #242424;
     font-size: 18px;
-  }
-  
-  .item-info {
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.item-info {
     display: flex;
     justify-content: space-between;
     font-size: 18px;
     margin: 10px 0;
     font-weight: bold;
-  }
-  
-  .item-subtitle {
+}
+
+.item-subtitle {
     font-size: 14px;
     font-weight: 600;
-  }
-  
-  .item-alergies {
+}
+
+.item-alergies {
     font-style: italic;
     font-size: 14px;
-  }
-  
-  .item-facts {
+}
+
+.item-facts {
     position: absolute;
     width: 600px;
     display: none;
@@ -82,13 +84,37 @@
     box-shadow: 1px 1px 6px;
     top: 100%;
     left: 0;
-  }
-  .item-active .recipe-facts {
+}
+.item-active .recipe-facts {
     display: block;
-  }
-  
-  .second-lang,
-  .restaurant-item-hidden {
+}
+
+.second-lang,
+.restaurant-item-hidden {
     display: none
-  }
+}
+
+.restaurant-items p {
+    margin: 0;
+}
   
+@media screen and (max-width: 768px) {
+    .restaurant-item {
+        position: unset
+    }
+    .item-active .item-facts {
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 99;
+        height: 100%;
+        padding: 100px 20px 0;
+    }
+    .restaurant-items > .restaurant-item {
+        flex: 1 1 100%;
+    }
+    .item-facts h4 {
+        font-size: 18px
+    }
+}

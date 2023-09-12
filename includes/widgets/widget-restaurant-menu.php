@@ -107,10 +107,6 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
 						'placeholder' 	=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
 						'label_block' 	=> true,
-						'condition' => [
-							'list_item_type' 	=> 'item',
-							'second_language'	=> 'yes'
-						],
 					],
 					[
 						'name' 			=> 'list_item_ingredients',
@@ -270,8 +266,8 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 								</div>
 							</div>
 							<div class="item-alergies">
-								<p class="first-lang">' . $item['list_item_alergies'] . '</p>
-								<p class="second-lang">' . $item['list_item_alergies_2nd'] . '</p>
+								<p class="first-lang">Alergeni: ' . $item['list_item_alergies'] . '</p>
+								<p class="second-lang">Alergies: ' . $item['list_item_alergies_2nd'] . '</p>
 							</div>
 						</div>
 					</div>
