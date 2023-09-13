@@ -24,8 +24,50 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 	public function get_keywords() {
 		return [ 'menu', 'restaurant', 'catering' ];
 	}
+
+	public function get_script_depends() {
+		return [ 'restaurant-menu-js' ];
+	}
     
 	protected function register_controls() {
+		
+		$this->start_controls_section(
+			'lang_section',
+			[
+				'label' 		=> esc_html__( 'Languages', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'first_lang',
+			[
+				'label' 		=> esc_html__( 'First Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::SELECT,
+				'default' 		=> 'RON',
+				'options' 		=> [
+					'romana' 		=> esc_html__( 'Romana', 'elementor-restaurant-menu' ),
+					'english' 		=> esc_html__( 'English', 'elementor-restaurant-menu' ),
+					'deutsch' 		=> esc_html__( 'Deutsch', 'elementor-restaurant-menu' ),
+				]
+			]
+		);
+
+		$this->add_control(
+			'second_lang',
+			[
+				'label' 		=> esc_html__( 'Second Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::SELECT,
+				'default' 		=> 'RON',
+				'options' 		=> [
+					'romana' 		=> esc_html__( 'Romana', 'elementor-restaurant-menu' ),
+					'english' 		=> esc_html__( 'English', 'elementor-restaurant-menu' ),
+					'deutsch' 		=> esc_html__( 'Deutsch', 'elementor-restaurant-menu' ),
+				]
+			]
+		);
+
+		$this->end_controls_section();
 		
 		$this->start_controls_section(
 			'items_section',
@@ -77,13 +119,9 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						],
 					],
 					[
-						'name' 			=> 'list_item_hide',
-						'label' 		=> esc_html__( 'Hide this item?', 'elementor-restaurant-menu' ),
+						'name' 			=> 'list_item_show',
+						'label' 		=> esc_html__( 'Show this item?', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::SWITCHER,
-						'label_on' 		=> esc_html__( 'No', 'elementor-restaurant-menu' ),
-						'label_off' 	=> esc_html__( 'Yes', 'elementor-restaurant-menu' ),
-						'return_value' 	=> 'yes',
-						'default' 		=> 'yes',
 					],
 					[
 						'name' 			=> 'second_language',
@@ -98,14 +136,14 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'name' 			=> 'list_item_name',
 						'label' 		=> esc_html__( 'Item Name', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
-						'placeholder' 	=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
+						'default' 		=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
 						'label_block' 	=> true,
 					],
 					[
 						'name' 			=> 'list_item_name_2nd',
 						'label' 		=> esc_html__( 'Item Name 2', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
-						'placeholder' 	=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
+						'default' 		=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
 						'label_block' 	=> true,
 					],
 					[
@@ -184,8 +222,9 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'condition' => [
 							'list_item_type' => 'item',
 						],
-					]
-				]
+					],
+				],
+				'title_field' => '{{list_item_name}} ({{list_item_type}})'
 			]
 		);
 
@@ -223,20 +262,34 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		?>
+
 		
 		<?php
 		if ( $settings['list'] ) {
+			echo '<div id="language-switch">
+				<label for="language_' . $settings['first_lang'] . '">
+					<input type="radio" id="language_' . $settings['first_lang'] . '" name="language_switch" value="first_lang">
+					<img src="' . plugins_url( '../../assets/img/flags/flag-' . $settings['first_lang'] . '.jpg', __FILE__ ) . '"> <span>' . $settings['first_lang'] . '</span>
+				</label>
+				<label for="language_' . $settings['second_lang'] . '">
+					<input type="radio" id="language_' . $settings['second_lang'] . '" name="language_switch" value="second_lang">
+					<img src="' . plugins_url( '../../assets/img/flags/flag-' . $settings['second_lang'] . '.jpg', __FILE__ ) . '"> <span>' . $settings['second_lang'] . '</span>
+				</label>
+			</div>';
+
 			echo '<div class="restaurant-items">';
 			foreach (  $settings['list'] as $item ) {
+				$hidden = ($item['list_item_show'] === 'yes') ? 'item-show' : 'item-hidden';
+
 				if($item['list_item_type'] == 'heading') {
 					echo '
-					<section class="list-item-' . esc_attr( $item['_id'] ) . '">
+					<section class="list-item-' . esc_attr( $item['_id'] ) . ' ' . $hidden . '">
 						<h2 class="item-section-heading first-lang">' . $item['list_item_name'] . '</h2>
 						<h2 class="item-section-heading second-lang">' . $item['list_item_name_2nd'] . '</h2>
 					</section>';
 				} else {
 					echo '
-					<div class="item-' . esc_attr( $item['_id'] ) . ' restaurant-item">
+					<div class="item-' . esc_attr( $item['_id'] ) . ' restaurant-item ' . $hidden . '">
 						<div class="item-image"><img src="' . $item['list_item_image']['url'] . '"></div>
 						<div class="item-details">
 							<div class="item-title">
@@ -258,9 +311,10 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 									<p class="first-lang">' . $item['list_item_ingredients'] . '</p>
 									<p class="second-lang">' . $item['list_item_ingredients_2nd'] . '</p>
 								</div>
+								<br>
 								<h4 class="first-lang">Informatii Nutritionale 100g</h4>
 								<h4 class="second-lang">Nutrition Facts per 100g</h4>
-								<div class="item-ingredients">
+								<div class="item-nutr-facts">
 									<p class="first-lang">' . $item['list_item_nutrition_facts'] . '</p>
 									<p class="second-lang">' . $item['list_item_nutrition_facts_2nd'] . '</p>
 								</div>
