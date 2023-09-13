@@ -1,3 +1,5 @@
+PS: STILL A WIP!
+
 A simple addon for Elementor to display a menu for restaurants/catering depending on 2 languages chosen.
 
 ![1](https://github.com/WildWomble/elementor-restaurant-menu/assets/83188038/f2ec1490-2e2a-4433-96a3-73e9bbbf1ac6)
