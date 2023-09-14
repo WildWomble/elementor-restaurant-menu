@@ -68,6 +68,124 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		
+		$this->start_controls_section(
+			'string_section',
+			[
+				'label' 		=> esc_html__( 'Strings', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'subtitle_first_lang',
+			[
+				'label' 		=> esc_html__( 'Subtitle - First Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Click pentru valori nutritionale.' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+			]
+		);
+
+		$this->add_control(
+			'subtitle_second_lang',
+			[
+				'label' 		=> esc_html__( 'Subtitle - Second Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Click to show nutritional values.' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+				'separator' 	=> 'after',
+			]
+		);
+
+		$this->add_control(
+			'ingr_first_lang',
+			[
+				'label' 		=> esc_html__( 'Ingredients Title - First Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Ingrediente' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+			]
+		);
+
+		$this->add_control(
+			'ingr_second_lang',
+			[
+				'label' 		=> esc_html__( 'Ingredients Title - Second Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Ingredients' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+				'separator' 	=> 'after'
+			]
+		);
+
+		$this->add_control(
+			'nutr_first_lang',
+			[
+				'label' 		=> esc_html__( 'Nutrition Facts Title - First Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Informatii Nutritionale 100g' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+			]
+		);
+
+		$this->add_control(
+			'nutr_second_lang',
+			[
+				'label' 		=> esc_html__( 'Nutrition Facts Title - Second Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Nutrition Facts per 100g' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+				'separator' 	=> 'after'
+			]
+		);
+
+		$this->add_control(
+			'alergy_first_lang',
+			[
+				'label' 		=> esc_html__( 'Alergies Title - First Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Alergeni:' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+			]
+		);
+
+		$this->add_control(
+			'alergy_second_lang',
+			[
+				'label' 		=> esc_html__( 'Alergies Title - Second Language', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::TEXT,
+				'default' 		=> esc_html__( 'Alergies:' , 'elementor-restaurant-menu' ),
+				'label_block' 	=> true,
+				'ai' => [
+					'active' => false,
+				],
+			]
+		);
+
+		$this->end_controls_section();
 		
 		$this->start_controls_section(
 			'items_section',
@@ -129,8 +247,8 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'label' 		=> esc_html__( 'Show 2nd language?', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::SWITCHER,
 						'label_on' 		=> esc_html__( 'Yes', 'elementor-restaurant-menu' ),
-						'label_off' 		=> esc_html__( 'No', 'elementor-restaurant-menu' ),
-						'return_value' 		=> 'yes',
+						'label_off' 	=> esc_html__( 'No', 'elementor-restaurant-menu' ),
+						'return_value' 	=> 'yes',
 						'default' 		=> 'yes',
 					],
 					[
@@ -138,30 +256,30 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'label' 		=> esc_html__( 'Item Name', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
 						'default' 		=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
-						'label_block' 		=> true,
+						'label_block' 	=> true,
 					],
 					[
 						'name' 			=> 'list_item_name_2nd',
 						'label' 		=> esc_html__( 'Item Name 2', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
 						'default' 		=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
-						'label_block' 		=> true,
+						'label_block' 	=> true,
 					],
 					[
 						'name' 			=> 'list_item_ingredients',
 						'label' 		=> esc_html__( 'Item Ingredients', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXTAREA,
-						'placeholder' 		=> esc_html__( 'Cheese - 50g, Bread - 15g, Tomato - 25g' , 'elementor-restaurant-menu' ),
-						'condition' 		=> [
-							'list_item_type' 	=> 'item',
+						'placeholder' 	=> esc_html__( 'Cheese - 50g, Bread - 15g, Tomato - 25g' , 'elementor-restaurant-menu' ),
+						'condition' => [
+							'list_item_type' => 'item',
 						],
 					],
 					[
 						'name' 			=> 'list_item_ingredients_2nd',
 						'label' 		=> esc_html__( 'Item Ingredients 2', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXTAREA,
-						'placeholder' 		=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
-						'condition' 		=> [
+						'placeholder' 	=> esc_html__( 'Something delicious!' , 'elementor-restaurant-menu' ),
+						'condition' => [
 							'list_item_type' 	=> 'item',
 							'second_language'	=> 'yes'
 						],
@@ -170,17 +288,17 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'name' 			=> 'list_item_nutrition_facts',
 						'label' 		=> esc_html__( 'Item Nutrition Facts', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXTAREA,
-						'placeholder' 		=> esc_html__( 'Energy Value (kJ/kcal): 568.4 / 135.8, Fat (g): 9.1 of which: Saturated Fatty Acids (g) 4.5, Carbohydrates (g): 7.7 of which: Sugars (g): 1.7, Protein (g): 6.5, Salt (g): 0.5' , 'elementor-restaurant-menu' ),
-						'condition' 		=> [
-							'list_item_type' 	=> 'item',
+						'placeholder' 	=> esc_html__( 'Energy Value (kJ/kcal): 568.4 / 135.8, Fat (g): 9.1 of which: Saturated Fatty Acids (g) 4.5, Carbohydrates (g): 7.7 of which: Sugars (g): 1.7, Protein (g): 6.5, Salt (g): 0.5' , 'elementor-restaurant-menu' ),
+						'condition' => [
+							'list_item_type' => 'item',
 						],
 					],
 					[
 						'name' 			=> 'list_item_nutrition_facts_2nd',
 						'label' 		=> esc_html__( 'Item Nutrition Facts 2', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXTAREA,
-						'placeholder' 		=> esc_html__( 'Energy Value (kJ/kcal): 568.4 / 135.8, Fat (g): 9.1 of which: Saturated Fatty Acids (g) 4.5, Carbohydrates (g): 7.7 of which: Sugars (g): 1.7, Protein (g): 6.5, Salt (g): 0.5' , 'elementor-restaurant-menu' ),
-						'condition' 		=> [
+						'placeholder' 	=> esc_html__( 'Energy Value (kJ/kcal): 568.4 / 135.8, Fat (g): 9.1 of which: Saturated Fatty Acids (g) 4.5, Carbohydrates (g): 7.7 of which: Sugars (g): 1.7, Protein (g): 6.5, Salt (g): 0.5' , 'elementor-restaurant-menu' ),
+						'condition' => [
 							'list_item_type' 	=> 'item',
 							'second_language'	=> 'yes'
 						],
@@ -189,19 +307,19 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'name' 			=> 'list_item_alergies',
 						'label' 		=> esc_html__( 'Item Alergies', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
-						'placeholder' 		=> esc_html__( 'Peanuts, Milk' , 'elementor-restaurant-menu' ),
-						'label_block' 		=> true,
-						'condition' 		=> [
-							'list_item_type' 	=> 'item',
+						'placeholder' 	=> esc_html__( 'Peanuts, Milk' , 'elementor-restaurant-menu' ),
+						'label_block' 	=> true,
+						'condition' => [
+							'list_item_type' => 'item',
 						],
 					],
 					[
 						'name' 			=> 'list_item_alergies_2nd',
 						'label' 		=> esc_html__( 'Item Alergies 2', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
-						'placeholder' 		=> esc_html__( 'Peanuts, Milk' , 'elementor-restaurant-menu' ),
-						'label_block' 		=> true,
-						'condition' 		=> [
+						'placeholder' 	=> esc_html__( 'Peanuts, Milk' , 'elementor-restaurant-menu' ),
+						'label_block' 	=> true,
+						'condition' => [
 							'list_item_type' 	=> 'item',
 							'second_language'	=> 'yes'
 						],
@@ -210,18 +328,18 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 						'name' 			=> 'list_item_weight',
 						'label' 		=> esc_html__( 'Item Weight (g)', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
-						'placeholder' 		=> esc_html__( '250g' , 'elementor-restaurant-menu' ),
-						'condition' 		=> [
-							'list_item_type' 	=> 'item',
+						'placeholder' 	=> esc_html__( '250g' , 'elementor-restaurant-menu' ),
+						'condition' => [
+							'list_item_type' => 'item',
 						],
 					],
 					[
 						'name' 			=> 'list_item_price',
 						'label' 		=> esc_html__( 'Item Price', 'elementor-restaurant-menu' ),
 						'type' 			=> \Elementor\Controls_Manager::TEXT,
-						'placeholder' 		=> esc_html__( '2.55' , 'elementor-restaurant-menu' ),
-						'condition' 		=> [
-							'list_item_type' 	=> 'item',
+						'placeholder' 	=> esc_html__( '2.55' , 'elementor-restaurant-menu' ),
+						'condition' => [
+							'list_item_type' => 'item',
 						],
 					],
 				],
@@ -302,27 +420,27 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 								<div class="info-price">' . $item['list_item_price'] . ' ' . $settings['currency'] . '</div>
 							</div>
 							<div class="item-subtitle">
-								<p class="first-lang">Click pentru valori nutritionale.</p>
-								<p class="second-lang">Click to show nutritional values.</p>
+								<p class="first-lang">' . $settings['subtitle_first_lang'] . '</p>
+								<p class="second-lang">' . $settings['subtitle_second_lang'] . '</p>
 							</div>
 							<div class="item-facts">
-								<h4 class="first-lang">Ingrediente</h4>
-								<h4 class="second-lang">Ingredients</h4>
+								<h4 class="first-lang">' . $settings['ingr_first_lang'] . '</h4>
+								<h4 class="second-lang">' . $settings['ingr_first_lang'] . '</h4>
 								<div class="item-ingredients">
 									<p class="first-lang">' . $item['list_item_ingredients'] . '</p>
 									<p class="second-lang">' . $item['list_item_ingredients_2nd'] . '</p>
 								</div>
 								<br>
-								<h4 class="first-lang">Informatii Nutritionale 100g</h4>
-								<h4 class="second-lang">Nutrition Facts per 100g</h4>
+								<h4 class="first-lang">' . $settings['nutr_first_lang'] . '</h4>
+								<h4 class="second-lang">' . $settings['nutr_second_lang'] . '</h4>
 								<div class="item-nutr-facts">
 									<p class="first-lang">' . $item['list_item_nutrition_facts'] . '</p>
 									<p class="second-lang">' . $item['list_item_nutrition_facts_2nd'] . '</p>
 								</div>
 							</div>
 							<div class="item-alergies">
-								<p class="first-lang">Alergeni: ' . $item['list_item_alergies'] . '</p>
-								<p class="second-lang">Alergies: ' . $item['list_item_alergies_2nd'] . '</p>
+								<p class="first-lang">' . $settings['alergy_first_lang'] . ' ' . $item['list_item_alergies'] . '</p>
+								<p class="second-lang">' . $settings['alergy_second_lang'] . ' ' . $item['list_item_alergies_2nd'] . '</p>
 							</div>
 						</div>
 					</div>
