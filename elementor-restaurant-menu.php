@@ -10,9 +10,13 @@
  * Elementor Pro tested up to:  3.16.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 function register_new_widget( $widgets_manager ) {
 
-	require_once( __DIR__ . '/includes/widgets/widget-restaurant-menu.php' );
+	require_once( __DIR__ . '/widgets/widget-restaurant-menu.php' );
 	
 	$widgets_manager->register( new \Widget_Restaurant_Menu() );
 
@@ -20,21 +24,13 @@ function register_new_widget( $widgets_manager ) {
 
 add_action( 'elementor/widgets/register', 'register_new_widget' );
 
-function widget_styles() {
-
-	wp_register_style( 'restaurant-menu-css', plugins_url( 'assets/css/restaurant-menu.css', __FILE__ ) );
-	
-	wp_enqueue_style( 'restaurant-menu-css' );
-
-}
-
-add_action( 'elementor/frontend/after_enqueue_styles', 'widget_styles' );
-
 function widget_scripts() {
 
+	/* Styles */
+	wp_register_style( 'restaurant-menu-css', plugins_url( 'assets/css/restaurant-menu.css', __FILE__ ) );
+	
+	/* Scripts */
 	wp_register_script( 'restaurant-menu-js', plugins_url( 'assets/js/restaurant-menu.js', __FILE__ ) );
-
-	// wp_enqueue_script( 'restaurant-menu-js' );
 
 }
 add_action( 'wp_enqueue_scripts', 'widget_scripts' );
