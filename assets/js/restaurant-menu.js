@@ -9,6 +9,9 @@
     $('#language-switch input').on('click', function () {
         let mode = $(this).val();
 
+        $(this).parent().siblings('.lang-active').toggleClass('lang-active');
+        $(this).parent().addClass('lang-active');
+
         if (mode === 'first_lang') {
             $('.first-lang').css('display', 'block');
             $('.second-lang').css('display', 'none');

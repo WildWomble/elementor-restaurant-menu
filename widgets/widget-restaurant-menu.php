@@ -53,8 +53,9 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 			[
 				'label' 		=> esc_html__( 'First Language', 'elementor-restaurant-menu' ),
 				'type' 			=> \Elementor\Controls_Manager::SELECT,
-				'default' 		=> 'RON',
+				'default' 		=> 'none',
 				'options' 		=> [
+					'none' 			=> esc_html__( 'None', 'elementor-restaurant-menu' ),
 					'romana' 		=> esc_html__( 'Romana', 'elementor-restaurant-menu' ),
 					'english' 		=> esc_html__( 'English', 'elementor-restaurant-menu' ),
 					'deutsch' 		=> esc_html__( 'Deutsch', 'elementor-restaurant-menu' ),
@@ -67,8 +68,9 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 			[
 				'label' 		=> esc_html__( 'Second Language', 'elementor-restaurant-menu' ),
 				'type' 			=> \Elementor\Controls_Manager::SELECT,
-				'default' 		=> 'RON',
+				'default' 		=> 'none',
 				'options' 		=> [
+					'none' 			=> esc_html__( 'None', 'elementor-restaurant-menu' ),
 					'romana' 		=> esc_html__( 'Romana', 'elementor-restaurant-menu' ),
 					'english' 		=> esc_html__( 'English', 'elementor-restaurant-menu' ),
 					'deutsch' 		=> esc_html__( 'Deutsch', 'elementor-restaurant-menu' ),
@@ -218,6 +220,12 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 			]
 		);
 
+		/*
+		* The new method shown on the official docs does not have an id for each field 
+		* as it should and it will throw an error in the console 'r[a] is not defined'
+		* This method fixed the issue
+		*/
+		
 		$repeater = new \Elementor\Repeater();
 
 		$repeater->add_control(
@@ -417,11 +425,11 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 				'label' 		=> esc_html__( 'Item Weight (g)', 'elementor-restaurant-menu' ),
 				'type' 			=> \Elementor\Controls_Manager::TEXT,
 				'default' 		=> esc_html__( '250g' , 'elementor-restaurant-menu' ),
-				'condition' => [
+				'condition' 	=> [
 					'list_item_type' => 'item',
 				],
-				'ai' => [
-					'active' => false,
+				'ai' 			=> [
+					'active' 		=> false,
 				],
 			]
 		);
@@ -432,11 +440,11 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 				'label' 		=> esc_html__( 'Item Price', 'elementor-restaurant-menu' ),
 				'type' 			=> \Elementor\Controls_Manager::TEXT,
 				'default' 		=> esc_html__( '2.55' , 'elementor-restaurant-menu' ),
-				'condition' => [
+				'condition' 	=> [
 					'list_item_type' => 'item',
 				],
-				'ai' => [
-					'active' => false,
+				'ai' 			=> [
+					'active' 		=> false,
 				],
 			]
 		);
@@ -444,10 +452,10 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 		$this->add_control(
 			'restaurant_items',
 			[
-				'label' => esc_html__( 'Restaurant Items', 'elementor-restaurant-menu' ),
-				'type' => \Elementor\Controls_Manager::REPEATER,
-				'fields' => $repeater->get_controls(),
-				'title_field' => '{{list_item_name}} ({{list_item_type}})'
+				'label' 		=> esc_html__( 'Restaurant Items', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::REPEATER,
+				'fields' 		=> $repeater->get_controls(),
+				'title_field' 	=> '{{list_item_name}} ({{list_item_type}})'
 			]
 		);
 
@@ -456,30 +464,313 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'flag_style',
 			[
-				'label' => esc_html__( 'Flag Style', 'elementor-restaurant-menu' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+				'label' 		=> esc_html__( 'Flag Style', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'flag_size',
 			[
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'label' => esc_html__( 'Flag Size', 'elementor-restaurant-menu' ),
-				'size_units' => [ 'px', '%', 'custom' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 350,
-					],
-					'%' => [
+				'type' 			=> \Elementor\Controls_Manager::SLIDER,
+				'label' 		=> esc_html__( 'Flag Size', 'elementor-restaurant-menu' ),
+				'size_units' 	=> [ '%' ],
+				'range' 		=> [
+					'%'	=> [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'devices' => [ 'desktop', 'tablet', 'mobile' ],
-				'selectors' => [
+				'devices' 		=> [ 'desktop', 'tablet', 'mobile' ],
+				'selectors' 	=> [
 					'{{WRAPPER}} #language-switch img' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+		
+		$this->start_controls_tabs(
+			'style_tabs'
+		);
+
+		$this->start_controls_tab(
+			'style_normal_tab',
+			[
+				'label' => esc_html__( 'Normal', 'elementor-restaurant-menu' ),
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'flags_typography_normal',
+				'selector' 		=> '{{WRAPPER}} #language-switch span',
+			]
+		);
+
+		$this->add_control(
+			'flags_background_color_normal',
+			[
+				'label' 		=> esc_html__( 'Background Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#fff',
+				'selectors' 	=> [
+					'{{WRAPPER}} #language-switch label' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'flags_border_radius_normal',
+			[
+				'label' => esc_html__( 'Border Radius', 'elementor-restaurant-menu' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} #language-switch label' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+		
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'style_hover_tab',
+			[
+				'label' => esc_html__( 'Hover', 'elementor-restaurant-menu' ),
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'flags_typography_hover',
+				'selector' 		=> '{{WRAPPER}} #language-switch label:hover span',
+			]
+		);
+
+		$this->add_control(
+			'flags_background_color_hover',
+			[
+				'label' 		=> esc_html__( 'Background Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#eee',
+				'selectors' 	=> [
+					'{{WRAPPER}} #language-switch label:hover' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'flags_border_radius_hover',
+			[
+				'label' => esc_html__( 'Border Radius', 'elementor-restaurant-menu' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} #language-switch label:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'style_active_tab',
+			[
+				'label' => esc_html__( 'Active', 'elementor-restaurant-menu' ),
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'flags_typography_active',
+				'selector' 		=> '{{WRAPPER}} #language-switch .lang-active span',
+			]
+		);
+
+		$this->add_control(
+			'flags_background_color_active',
+			[
+				'label' 		=> esc_html__( 'Background Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#fff',
+				'selectors' 	=> [
+					'{{WRAPPER}} #language-switch .lang-active' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'flags_border_radius_active',
+			[
+				'label' => esc_html__( 'Border Radius', 'elementor-restaurant-menu' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} #language-switch .lang-active' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+		
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'heading_style',
+			[
+				'label' 		=> esc_html__( 'Headers', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+		
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'heading_typography',
+				'selector' 		=> '{{WRAPPER}} .item-section-heading',
+			]
+		);
+
+		$this->add_control(
+			'heading_background_color',
+			[
+				'label' 		=> esc_html__( 'Background Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#605c5c',
+				'selectors' 	=> [
+					'{{WRAPPER}} .item-section-heading' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'heading_border',
+				'selector' => '{{WRAPPER}} .item-section-heading',
+			]
+		);
+		
+		$this->add_control(
+			'heading_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'elementor-restaurant-menu' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} .item-section-heading' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+		
+		$this->start_controls_section(
+			'items_name_style',
+			[
+				'label' 		=> esc_html__( 'Item Name', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'item_name_typography',
+				'selector' 		=> '{{WRAPPER}} .item-details h2',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'items_weight_style',
+			[
+				'label' 		=> esc_html__( 'Item Weight', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'item_weight_typography',
+				'selector' 		=> '{{WRAPPER}} .info-weight',
+			]
+		);
+
+		$this->add_control(
+			'item_weight_color',
+			[
+				'label' 		=> esc_html__( 'Text Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#242424',
+				'selectors' 	=> [
+					'{{WRAPPER}} .info-weight' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+		
+		$this->start_controls_section(
+			'items_price_style',
+			[
+				'label' 		=> esc_html__( 'Item Price', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'item_price_typography',
+				'selector' 		=> '{{WRAPPER}} .info-price',
+			]
+		);
+
+		$this->add_control(
+			'item_price_color',
+			[
+				'label' 		=> esc_html__( 'Text Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#242424',
+				'selectors' 	=> [
+					'{{WRAPPER}} .info-price' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+		
+		$this->start_controls_section(
+			'items_subtitle_style',
+			[
+				'label' 		=> esc_html__( 'Item Subtitle', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'item_subtitle_typography',
+				'selector' 		=> '{{WRAPPER}} .item-subtitle',
+			]
+		);
+
+		$this->add_control(
+			'item_subtitle_color',
+			[
+				'label' 		=> esc_html__( 'Text Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#242424',
+				'selectors' 	=> [
+					'{{WRAPPER}} .item-subtitle' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -487,31 +778,46 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'heading_style',
+			'items_alergy_style',
 			[
-				'label' => esc_html__( 'Heading Style', 'elementor-restaurant-menu' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+				'label' 		=> esc_html__( 'Item Alergies', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
-		
+
 		$this->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
 			[
-				'name' => 'content_typography',
-				'selector' => '{{WRAPPER}} .item-section-heading',
+				'name' 			=> 'item_alergy_typography',
+				'selector' 		=> '{{WRAPPER}} .item-alergies',
+			]
+		);
+
+		$this->add_control(
+			'item_alergy_color',
+			[
+				'label' 		=> esc_html__( 'Text Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#5e5e5e',
+				'selectors' 	=> [
+					'{{WRAPPER}} .item-alergies' => 'color: {{VALUE}}',
+				],
 			]
 		);
 
 		$this->end_controls_section();
+
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$flags = '';
 		?>
 
 		<?php
 		if ( $settings['restaurant_items'] ) {
-			echo '<div id="language-switch">
+			if($settings['first_lang'] != 'none' && $settings['second_lang'] != 'none') {
+				$flags .= '
 				<label for="language_' . $settings['first_lang'] . '">
 					<input type="radio" id="language_' . $settings['first_lang'] . '" name="language_switch" value="first_lang">
 					<img src="' . plugins_url( '../assets/img/flags/flag-' . $settings['first_lang'] . '.jpg', __FILE__ ) . '"> <span>' . $settings['first_lang'] . '</span>
@@ -519,8 +825,11 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 				<label for="language_' . $settings['second_lang'] . '">
 					<input type="radio" id="language_' . $settings['second_lang'] . '" name="language_switch" value="second_lang">
 					<img src="' . plugins_url( '../assets/img/flags/flag-' . $settings['second_lang'] . '.jpg', __FILE__ ) . '"> <span>' . $settings['second_lang'] . '</span>
-				</label>
-			</div>';
+				</label>';
+			} else {
+				$flags = '';
+			}
+			echo '<div id="language-switch">' . $flags . '</div>';
 
 			echo '<div class="restaurant-items">';
 			foreach (  $settings['restaurant_items'] as $item ) {
