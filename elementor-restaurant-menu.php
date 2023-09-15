@@ -6,8 +6,8 @@
  * Author:                      WildWomble
  * Author URI:                  https://github.com/WildWomble/elementor-restaurant-menu
  * Text Domain:                 elementor-restaurant-menu
- * Elementor tested up to:      3.16.0
- * Elementor Pro tested up to:  3.16.0
+ * Elementor tested up to:      3.16.3
+ * Elementor Pro tested up to:  3.16.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,10 +27,10 @@ add_action( 'elementor/widgets/register', 'register_new_widget' );
 function widget_scripts() {
 
 	/* Styles */
-	wp_register_style( 'restaurant-menu-css', plugins_url( 'assets/css/restaurant-menu.css', __FILE__ ) );
+	wp_register_style( 'restaurant-menu-css', plugins_url( 'assets/css/restaurant-menu.css', __FILE__ ), array(), '1.0.0', 'all' );
 	
 	/* Scripts */
-	wp_register_script( 'restaurant-menu-js', plugins_url( 'assets/js/restaurant-menu.js', __FILE__ ) );
+	wp_register_script( 'restaurant-menu-js', plugins_url( 'assets/js/restaurant-menu.js', __FILE__ ), array('jquery'), '1.0.0', true );
 
 }
 add_action( 'wp_enqueue_scripts', 'widget_scripts' );
