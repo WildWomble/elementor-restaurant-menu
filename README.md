@@ -1,4 +1,4 @@
-PS: STILL A WIP!
+STILL A WIP!
 
 A simple addon for Elementor to display a menu for restaurants/catering depending on 2 languages chosen.
 
@@ -6,6 +6,6 @@ A simple addon for Elementor to display a menu for restaurants/catering dependin
 
 On click it will open other info about the product such as Ingredients and Nutrition Facts. On Mobile it will display this info as a full screen popup which disappears on tap/click.
 
-Made it as a learning experience, i do not plan to fix bugs or errors in a fast manner.
+Made it as a learning experience.
 
 Simply install it, activate and within the Elementor Live builder, search for Restaurant Menu.
