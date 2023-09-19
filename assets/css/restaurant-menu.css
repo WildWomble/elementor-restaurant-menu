@@ -39,6 +39,12 @@
     font-size: 32px;
 }
 
+.item-section-heading span {
+    font-size: 20px;
+    color: #fff;
+    display: block;
+}
+
 .restaurant-items section {
     width: 100%
 }
@@ -61,7 +67,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    width: 120px;
+    width: 100px;
     height: 120px;
 }
 
@@ -176,11 +182,12 @@
     }
 
     #language-switch label {
-        padding: 5px;
+        padding: 10px 5px;
         border-radius: 10px;
         justify-content: center;
         align-items: center;
         display: flex;
+        margin: 0;
     }
 
     #language-switch span {

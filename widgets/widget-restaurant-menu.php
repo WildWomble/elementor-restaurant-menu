@@ -488,6 +488,18 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 			]
 		);
 		
+		$this->add_control(
+			'flag_margin',
+			[
+				'label' => esc_html__( 'Margins', 'elementor-restaurant-menu' ),
+				'type' => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} #language-switch' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+		
 		$this->start_controls_tabs(
 			'style_tabs'
 		);
@@ -669,6 +681,9 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 
 		$this->end_controls_section();
 		
+		/*
+		*	Item Name Group
+		*/
 		$this->start_controls_section(
 			'items_name_style',
 			[
@@ -685,8 +700,23 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'item_name_color',
+			[
+				'label' 		=> esc_html__( 'Text Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#242424',
+				'selectors' 	=> [
+					'{{WRAPPER}} .item-details h2' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
+		/*
+		*	Item Weight Group
+		*/
 		$this->start_controls_section(
 			'items_weight_style',
 			[
@@ -716,7 +746,10 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 		);
 
 		$this->end_controls_section();
-		
+
+		/*
+		*	Item Price Group
+		*/
 		$this->start_controls_section(
 			'items_price_style',
 			[
@@ -746,7 +779,10 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 		);
 
 		$this->end_controls_section();
-		
+
+		/*
+		*	Item Subtitle Group
+		*/
 		$this->start_controls_section(
 			'items_subtitle_style',
 			[
@@ -777,6 +813,9 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 
 		$this->end_controls_section();
 
+		/*
+		*	Item Alergies Group
+		*/
 		$this->start_controls_section(
 			'items_alergy_style',
 			[
@@ -807,17 +846,82 @@ class Widget_Restaurant_Menu extends \Elementor\Widget_Base {
 
 		$this->end_controls_section();
 
+		/*
+		*	Item Ingredients Group - Shown on item click
+		*/
+		$this->start_controls_section(
+			'items_ingr_style',
+			[
+				'label' 		=> esc_html__( 'Item Ingredients - Shown on item click', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'item_ingr_typography',
+				'selector' 		=> '{{WRAPPER}} .item-ingredients',
+			]
+		);
+
+		$this->add_control(
+			'item_ingr_color',
+			[
+				'label' 		=> esc_html__( 'Text Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#5e5e5e',
+				'selectors' 	=> [
+					'{{WRAPPER}} .item-ingredients' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		/*
+		*	Item Nutrition Group - Shown on item click
+		*/
+		$this->start_controls_section(
+			'items_nutr_style',
+			[
+				'label' 		=> esc_html__( 'Item Nutrition Facts - Shown on item click', 'elementor-restaurant-menu' ),
+				'tab' 			=> \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' 			=> 'item_nutr_typography',
+				'selector' 		=> '{{WRAPPER}} .item-nutr-facts',
+			]
+		);
+
+		$this->add_control(
+			'item_nutr_color',
+			[
+				'label' 		=> esc_html__( 'Text Color', 'elementor-restaurant-menu' ),
+				'type' 			=> \Elementor\Controls_Manager::COLOR,
+				'default' 		=> '#5e5e5e',
+				'selectors' 	=> [
+					'{{WRAPPER}} .item-nutr-facts' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$flags = '';
 		?>
 
 		<?php
 		if ( $settings['restaurant_items'] ) {
 			if($settings['first_lang'] != 'none' && $settings['second_lang'] != 'none') {
-				$flags .= '
+				$flags = '
 				<label for="language_' . $settings['first_lang'] . '">
 					<input type="radio" id="language_' . $settings['first_lang'] . '" name="language_switch" value="first_lang">
 					<img src="' . plugins_url( '../assets/img/flags/flag-' . $settings['first_lang'] . '.jpg', __FILE__ ) . '"> <span>' . $settings['first_lang'] . '</span>
