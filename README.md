@@ -1,5 +1,3 @@
-STILL A WIP!
-
 A simple addon for Elementor to display a menu for restaurants/catering depending on 2 languages chosen.
 
 [Working Example](https://lunabistro.ro/meniu-restaurant/)
