@@ -1,3 +1,5 @@
+THIS VERSION IS NO LONGER WORKED ON! I'll only update the other plugin containing this widget and others that may arrive in the future. [See Here](https://github.com/WildWomble/wild-pack-elementor)
+
 A simple addon for Elementor to display a menu for restaurants/catering depending on 2 languages chosen.
 
 [Working Example](https://lunabistro.ro/meniu-restaurant/)
